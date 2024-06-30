@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('https://images.unsplash.com/photo-1578852612716-854e527abf2e?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 350px;
+            text-align: center;
+        }
+        .container h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #333;
+        }
+        .input-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .input-container input {
+            width: 70%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            outline: none;
+            font-size: 16px;
+        }
+        .input-container button {
+            width: 25%;
+            padding: 10px;
+            border: none;
+            background: #28a745;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .input-container button:hover {
+            background: #218838;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+        li:hover {
+            background: #f9f9f9;
+        }
+        li.completed span {
+            text-decoration: line-through;
+            color: #888;
+        }
+        .status {
+            display: flex;
+            align-items: center;
+        }
+        .status input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        .delete-btn, .edit-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 5px;
+        }
+        .edit-btn {
+            background: #ffc107;
+        }
+        .delete-btn:hover {
+            background: #c82333;
+        }
+        .edit-btn:hover {
+            background: #e0a800;
+        }
+        .counters {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <div class="input-container">
+            <input type="text" id="taskInput" placeholder="Add a new task...">
+            <button onclick="addTask()">Add</button>
+        </div>
+        <ul id="taskList"></ul>
+        <div class="counters">
+            <div>Pending: <span id="pendingCount">0</span></div>
+            <div>Completed: <span id="completedCount">0</span></div>
+        </div>
+    </div>
+
+    <script>
+        function addTask() {
+            const taskInput = document.getElementById('taskInput');
+            const taskList = document.getElementById('taskList');
+            const taskText = taskInput.value.trim();
+            
+            if (taskText === '') {
+                alert('Please enter a task.');
+                return;
+            }
+
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <div class="status">
+                    <input type="checkbox" onclick="toggleComplete(this)">
+                    <span>${taskText}</span>
+                </div>
+                <button class="edit-btn" onclick="editTask(this)">Edit</button>
+                <button class="delete-btn" onclick="deleteTask(this)">Delete</button>
+            `;
+            taskList.appendChild(li);
+            taskInput.value = '';
+            updateCounters();
+        }
+
+        function toggleComplete(checkbox) {
+            checkbox.parentElement.parentElement.classList.toggle('completed');
+            updateCounters();
+        }
+
+        function deleteTask(button) {
+            button.parentElement.remove();
+            updateCounters();
+        }
+
+        function editTask(button) {
+            const li = button.parentElement;
+            const span = li.querySelector('span');
+            const newText = prompt('Edit task:', span.textContent);
+            if (newText) {
+                span.textContent = newText;
+            }
+        }
+
+        function updateCounters() {
+            const tasks = document.querySelectorAll('li');
+            const completedTasks = document.querySelectorAll('li.completed');
+            document.getElementById('pendingCount').textContent = tasks.length - completedTasks.length;
+            document.getElementById('completedCount').textContent = completedTasks.length;
+        }
+    </script>
+</body>
+</html>
