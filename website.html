@@ -446,13 +446,13 @@
             navList.classList.toggle('show');
         });
 
-        // Get the modal element
+       
         var modal = document.getElementById('paymentModal');
 
-        // Get the button that opens the modal
+        
         var buyBtns = document.getElementsByClassName('buy-btn');
 
-        // Get the <span> element that closes the modal
+       
         var closeBtn = document.getElementsByClassName("close")[0];
 
         // When the user clicks the button, open the modal 
@@ -467,20 +467,20 @@
             modal.style.display = "none";
         }
 
-        // Pay on Delivery Button functionality
+       
         document.getElementById('payOnDeliveryBtn').addEventListener('click', function() {
             alert('Your order will be placed for Pay on Delivery.');
             modal.style.display = "none"; // Close the modal after alert
         });
 
-        // When the user clicks anywhere outside of the modal, close it
+        
         window.onclick = function(event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
         }
 
-        // Smooth scroll to featured products
+        
         document.getElementById('buyNowBtn').addEventListener('click', function(event) {
             event.preventDefault();
             document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
@@ -533,7 +533,7 @@
             }
         });
 
-        // Handle login form submission
+       
         const loginForm = document.getElementById('loginForm');
         loginForm.addEventListener('submit', (event) => {
             event.preventDefault();
