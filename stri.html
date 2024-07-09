@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stri - Women's Clothing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('bg.jpg');
+            background-repeat: no-repeat; 
+            background-size: contain;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #333;
+            color: burlywood;
+            padding: 10px 0;
+            text-align: center;
+            position: relative;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            margin: 0;
+        }
+        nav ul li {
+            margin-right: 20px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 1.5em;
+            color: #fff;
+        }
+        .login-btn {
+            position: absolute;
+            right: 60px;
+            top: 20px;
+            font-size: 1.2em;
+            color: #fff;
+            background-color: #f44336;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .login-btn:hover {
+            background-color: #db4436;
+        }
+        .hero {
+            background-image: url('hero.jpg');
+            background-size: cover;
+            color: palevioletred;
+            padding: 100px 0;
+            text-align: center;
+        }
+        .hero h2 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #f44336;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #db4436;
+        }
+        .featured-products {
+            background-color: lightpink;
+            padding: 50px 0;
+            text-align: center;
+        }
+        .featured-products h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+        .product-grid {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .product {
+            width: 250px;
+            margin: 20px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            background-color: #fff;
+            transition: transform 0.3s ease;
+        }
+        .product:hover {
+            transform: scale(1.05);
+        }
+        .product img {
+            width: 100%;
+            height: auto;
+            border-bottom: 1px solid #eee;
+            transition: transform 0.3s ease;
+        }
+        .product:hover img {
+            transform: scale(1.1);
+        }
+        .product h3 {
+            padding: 10px;
+            margin: 0;
+            font-size: 1.2em;
+        }
+        .product .price {
+            color: #f44336;
+            font-weight: bold;
+            padding: 10px;
+            margin: 0;
+        }
+        .product .rating {
+            color: #ffc107;
+            margin: 0;
+            padding: 10px;
+        }
+        .product .btn {
+            display: block;
+            background-color: #e8a0eb;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .product .btn:hover {
+            background-color: #f74ab5;
+        }
+        .about-us, .contact {
+            background-color: bisque;
+            color: lightslategray;
+            padding: 50px 0;
+            text-align: center;
+        }
+        .about-us h2, .contact h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+        .about-us p, .contact p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            nav ul {
+                display: none;
+                flex-direction: column;
+                text-align: center;
+            }
+            nav ul li {
+                margin: 10px 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul.show {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Stri</h1>
+            <span class="menu-toggle" id="menuToggle">&#9776;</span>
+            <nav>
+                <ul id="navList">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="login-btn" id="loginBtn">Login</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h2>Welcome to Stri</h2>
+                <p>Discover the latest trends in women's fashion.</p>
+                <a href="#shop" class="btn" id="buyNowBtn">Shop Now</a>
+            </div>
+        </section>
+
+        <section class="featured-products" id="shop">
+            <div class="container">
+                <h2>Our Products</h2>
+                <div class="product-grid">
+                    <!-- Product 1 -->
+                    <div class="product">
+                        <img src="C:\Users\HP\Pictures\prod1.jpg" alt="A- Line Maxi dress">
+                        <h5>A- Line Maxi dress</h5>
+                        <p class="price">Rs 699.99</p>
+                        <p class="rating">Rating: 4.5</p>
+                        <a href="#" class="btn buy-btn">Buy Now</a>
+                    </div>
+                    <!-- Product 2 -->
+                    <div class="product">
+                        <img src="C:\Users\HP\Pictures\prod2.jpg" alt="pre-stitched saree with embroided blouse">
+                        <h5>Pre-stitched saree with embroided blouse</h5>
+                        <p class="price">Rs.2179.99</p>
+                        <p class="rating">Rating: 4.2</p>
+                        <a href="#" class="btn buy-btn">Buy Now</a>
+                    </div>
+                    <!-- Product 3 -->
+                    <div class="product">
+                        <img src="C:\Users\HP\Pictures\prod3.jpg" alt="pre-stitched saree with corset blouse">
+                        <h5>Pre-stitched saree with corset blouse</h5>
+                        <p class="price">Rs. 2379.99</p>
+                        <p class="rating">Rating: 4.4</p>
+                        <a href="#" class="btn buy-btn">Buy Now</a>
+                    </div>
+                    <!-- Product 4 -->
+                    <div class="product">
+                        <img src="C:\Users\HP\Pictures\prod4.jpg" alt="Solid V-Neck A-Line Dress">
+                        <h5>Solid V-Neck A-Line Dress</h5>
+                        <p class="price">Rs. 1500.99</p>
+                        <p class="rating">Rating: 4.7</p>
+                        <a href="#" class="btn buy-btn">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about-us" id="about">
+            <div class="container">
+                <h2>About Us</h2>
+                <p>Stri is dedicated to bringing you the latest in women's fashion. Our collection features stylish and affordable clothing for every occasion.</p>
+                <p>Our mission is to provide quality products with exceptional customer service.</p>
+            </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <div class="container">
+                <h2>Contact Us</h2>
+                <p>Have questions or need assistance? Contact our customer support team.</p>
+                <p>Email: support@stri.com | Phone: +91 1234567890</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Stri. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <label for="username">Username:</label><br>
+                <input type="text" id="username" name="username" required><br>
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password" required><br><br>
+                <input type="submit" value="Login">
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var menuToggle = document.getElementById('menuToggle');
+            var navList = document.getElementById('navList');
+            var loginBtn = document.getElementById('loginBtn');
+            var loginModal = document.getElementById('loginModal');
+            var closeModal = document.getElementsByClassName('close')[0];
+
+            menuToggle.addEventListener('click', function() {
+                navList.classList.toggle('show');
+            });
+
+            loginBtn.addEventListener('click', function() {
+                loginModal.style.display = 'block';
+            });
+
+            closeModal.addEventListener('click', function() {
+                loginModal.style.display = 'none';
+            });
+
+            window.addEventListener('click', function(event) {
+                if (event.target == loginModal) {
+                    loginModal.style.display = 'none';
+                }
+            });
+
+            document.getElementById('buyNowBtn').addEventListener('click', function() {
+                var productSection = document.getElementById('shop');
+                productSection.scrollIntoView({ behavior: 'smooth' });
+            });
+
+            document.getElementById('loginForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                var username = document.getElementById('username').value;
+                var password = document.getElementById('password').value;
+
+                // Perform login validation (example only, replace with real validation)
+                if (username === "user" && password === "password") {
+                    alert("Login successful!");
+                    loginModal.style.display = 'none';
+                } else {
+                    alert("Invalid username or password.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
